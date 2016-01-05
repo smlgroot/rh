@@ -17,7 +17,20 @@
 </head>
 
 <body>
-<div id="consoleDiv"></div>
+  <div id="consoleDiv"></div>
+  <script src="/gyronorm/dist/gyronorm.complete.min.js"></script>
+  <script>
+    var gn = new GyroNorm();
+
+    gn.init().then(function() {
+      gn.start(function(data) {
+        console.log('data:', data);
+      });
+    }).catch(function(e) {
+      // Catch if the DeviceOrientation or DeviceMotion is not supported by the browser or device
+      console.log('e:', e);
+    });
+  </script>
   <script src="/js/three.min.js"></script>
   <script>
     var scene = new THREE.Scene();
@@ -46,7 +59,7 @@
 
     ///////
     var consoleDiv = document.getElementById('consoleDiv');
-    consoleDiv.innerText ="x";
+    consoleDiv.innerText = "x";
     var consoleView = function(msg) {
       consoleDiv.innerText += "{" + msg + "}";
     };

@@ -1,0 +1,40 @@
+{
+  "name": "gyronorm",
+  "version": "2.0.4",
+  "homepage": "https://github.com/dorukeker/gyronorm.git",
+  "authors": [
+    "Doruk Eker"
+  ],
+  "description": "Accesses the gyroscope and accelerometer data from the web browser and combines them in one JS object.",
+  "main": "dist/gyronorm.js",
+  "ignore": [
+    "README.md",
+    "LICENSE",
+    "demo/*",
+    "demo",
+    "Gruntfile.js",
+    "package.json",
+    "bower_components/*",
+    "node_modules/*"
+  ],
+  "keywords": [
+    "devicemotion",
+    "deviceorientation"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "bootstrap": "~3.3.2",
+    "fulltilt": "0.5.3",
+    "es6-promise": "*"
+  },
+  "_release": "2.0.4",
+  "_resolution": {
+    "type": "version",
+    "tag": "v2.0.4",
+    "commit": "3206f9e2a95a60cbcdc76082458016a17ec9b048"
+  },
+  "_source": "git://github.com/dorukeker/gyronorm.js.git",
+  "_target": "~2.0.4",
+  "_originalSource": "gyronorm",
+  "_direct": true
+}
