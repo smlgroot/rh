@@ -17,14 +17,21 @@
 </head>
 
 <body>
-  <div id="consoleDiv"></div>
+  <div style="font-size:4em;" id="consoleDiv"></div>
   <script src="/gyronorm/dist/gyronorm.complete.min.js"></script>
   <script>
+    ///////
+    var consoleDiv = document.getElementById('consoleDiv');
+    consoleDiv.innerText = "x";
+    var consoleView = function(msg) {
+      consoleDiv.innerText += "{" + msg + "}";
+    };
+    //
     var gn = new GyroNorm();
-
     gn.init().then(function() {
       gn.start(function(data) {
         console.log('data:', data.dm.gx, data.dm.gy, data.dm.gz);
+        consoleDiv.innerText = "{" + data.dm.gx + "," + data.dm.gy + "," + data.dm.gz + "}";
       });
     }).catch(function(e) {
       // Catch if the DeviceOrientation or DeviceMotion is not supported by the browser or device
@@ -56,39 +63,6 @@
       renderer.render(scene, camera);
     }
     render();
-
-    ///////
-    var consoleDiv = document.getElementById('consoleDiv');
-    consoleDiv.innerText = "x";
-    var consoleView = function(msg) {
-      consoleDiv.innerText += "{" + msg + "}";
-    };
-    var tilt = function(beta) {
-      console.log(beta);
-    };
-    if (window.DeviceOrientationEvent) {
-      consoleView("deviceorientation");
-      window.addEventListener("deviceorientation", function() {
-        consoleView("deviceorientation");
-        tilt([event.beta, event.gamma]);
-      }, true);
-    } else if (window.DeviceMotionEvent) {
-      consoleView("devicemotion");
-      window.addEventListener('devicemotion', function() {
-        consoleView("devicemotion");
-        tilt([
-          event.acceleration.x * 2, event.acceleration.y * 2
-        ]);
-      }, true);
-    } else {
-      consoleView("MozOrientation");
-      window.addEventListener("MozOrientation", function() {
-        consoleView("MozOrientation");
-        tilt([
-          orientation.x * 50, orientation.y * 50
-        ]);
-      }, true);
-    }
   </script>
 </body>
 
