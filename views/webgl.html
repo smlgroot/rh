@@ -24,7 +24,7 @@
 
     gn.init().then(function() {
       gn.start(function(data) {
-        console.log('data:', data);
+        console.log('data:', data.dm.gx, data.dm.gy, data.dm.gz);
       });
     }).catch(function(e) {
       // Catch if the DeviceOrientation or DeviceMotion is not supported by the browser or device
