@@ -20,6 +20,9 @@
   <div style="font-size:4em;" id="consoleDiv"></div>
   <script src="/gyronorm/dist/gyronorm.complete.min.js"></script>
   <script>
+    var x = 0;
+    var y = 0;
+    var z = 0;
     ///////
     var consoleDiv = document.getElementById('consoleDiv');
     consoleDiv.innerText = "x";
@@ -32,6 +35,8 @@
       gn.start(function(data) {
         console.log('data:', data.dm.gx, data.dm.gy, data.dm.gz);
         consoleDiv.innerText = "{" + data.dm.gx + "," + data.dm.gy + "," + data.dm.gz + "}";
+        x = data.dm.gx;
+        y = data.dm.gy;
       });
     }).catch(function(e) {
       // Catch if the DeviceOrientation or DeviceMotion is not supported by the browser or device
@@ -58,8 +63,8 @@
 
     function render() {
       requestAnimationFrame(render);
-      cube.rotation.x += 0.1;
-      cube.rotation.y += 0.1;
+      cube.rotation.x = x;
+      cube.rotation.y = y;
       renderer.render(scene, camera);
     }
     render();
