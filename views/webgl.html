@@ -35,8 +35,8 @@
       gn.start(function(data) {
         console.log('data:', data.dm.gx, data.dm.gy, data.dm.gz);
         consoleDiv.innerText = "{" + data.dm.gx + "," + data.dm.gy + "," + data.dm.gz + "}";
-        x = data.dm.gy/100;
-        y = data.dm.gx/100;
+        x = data.dm.gy/10;
+        y = data.dm.gx/10;
       });
     }).catch(function(e) {
       // Catch if the DeviceOrientation or DeviceMotion is not supported by the browser or device
