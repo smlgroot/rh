@@ -34,6 +34,16 @@ app.get('/webgl', function(req, res) {
   res.sendfile(__dirname + '/views/webgl.html');
 });
 
-http.createServer(app).listen(app.get('port'), "0.0.0.0", function() {
+var httpServer = http.createServer(app).listen(app.get('port'), "0.0.0.0", function() {
   console.log('Express server listening on port ' + app.get('port'));
+});
+
+var io = require('socket.io')(httpServer);
+io.on('connection', function(socket) {
+  socket.emit('news', {
+    hello: 'world'
+  });
+  socket.on('my other event', function(data) {
+    console.log(data);
+  });
 });
