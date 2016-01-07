@@ -31,7 +31,17 @@ app.get('/', routes.index);
 app.get('/modals', routes.modals);
 app.get('/users', user.list);
 app.get('/webgl', function(req, res) {
-  res.sendfile(__dirname + '/views/webgl.html');
+  console.log(req.query);
+  var query = req.query;
+  if (query && query.type) {
+    if (query.type == 'desk') {
+      res.sendfile(__dirname + '/views/webglDesk.html');
+    } else if (query.type == 'phone') {
+      res.sendfile(__dirname + '/views/webglPhone.html');
+    } else {
+      res.send("no page for type:" + query.type);
+    }
+  }
 });
 
 var httpServer = http.createServer(app).listen(app.get('port'), "0.0.0.0", function() {
@@ -40,10 +50,16 @@ var httpServer = http.createServer(app).listen(app.get('port'), "0.0.0.0", funct
 
 var io = require('socket.io')(httpServer);
 io.on('connection', function(socket) {
-  socket.emit('news', {
-    hello: 'world'
-  }); 
-  socket.on('my other event', function(data) {
+
+  socket.on('phone-data', function(data) {
+    console.log(data);
+    io.emit('phone-data', data);
+  });
+  socket.on('phone-data-test', function(data) {
     console.log(data);
   });
+  socket.on('disconnect', function() {
+    io.emit('user disconnected');
+  });
+
 });
