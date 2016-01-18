@@ -16,7 +16,8 @@
   </style>
   <script src="https://cdn.socket.io/socket.io-1.3.7.js"></script>
   <script>
-    var socket = io.connect('http://shrouded-spire-4674.herokuapp.com/');
+  //var socket = io.connect('http://shrouded-spire-4674.herokuapp.com/');
+  var socket = io.connect(window.location.origin);
     /*socket.on('message', function(data) {
     console.log(data);
     });*/
@@ -32,12 +33,13 @@
     var consoleDiv = document.getElementById('consoleDiv');
     consoleDiv.innerText = "";
     var consoleView = function(msg) {
+      console.log(window.location.origin);
       consoleDiv.innerText += "{" + msg.message + "}";
     };
     //
     var gn = new GyroNorm();
     var args = {
-      gravityNormalized: true
+      gravityNormalized: false
     };
     gn.init(args).then(function() {
 

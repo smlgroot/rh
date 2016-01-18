@@ -36,6 +36,8 @@ app.get('/webgl', function(req, res) {
   if (query && query.type) {
     if (query.type == 'desk') {
       res.sendfile(__dirname + '/views/webglDesk.html');
+    } else if (query.type == 'desk2d') {
+      res.sendfile(__dirname + '/views/webglDesk2D.html');
     } else if (query.type == 'phone') {
       res.sendfile(__dirname + '/views/webglPhone.html');
     } else {
@@ -43,14 +45,18 @@ app.get('/webgl', function(req, res) {
     }
   }
 });
-
+/////////
+app.get('/angular2', function(req, res) {
+  res.sendfile(__dirname + '/public/index.html');
+});
+/////////
 var httpServer = http.createServer(app).listen(app.get('port'), "0.0.0.0", function() {
   console.log('Express server listening on port ' + app.get('port'));
 });
 
 var io = require('socket.io')(httpServer);
 io.on('connection', function(socket) {
-
+  console.log('connection');
   socket.on('phone-data', function(data) {
     console.log(data);
     io.emit('phone-data', data);

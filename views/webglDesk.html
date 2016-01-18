@@ -19,15 +19,51 @@
     var x = 0;
     var y = 0;
     var z = 0;
-    var socket = io.connect('http://shrouded-spire-4674.herokuapp.com/');
+    var radX = 0;
+    var radY = 0;
+    var radZ = 0;
+
+
+    var xAngle = 0;
+    //var socket = io.connect('http://shrouded-spire-4674.herokuapp.com/');
+    var socket = io.connect('http://localhost:3000');
     var flag = 0;
     socket.on('phone-data', function(data) {
       if (true || flag < 20) {
         flag++;
-        x = data.motionGX / 9.81;
-        y = data.motionGY / 9.81;
-        z = data.motionGZ / 9.81;
-        console.log(x, y, z);
+        /*
+        -9=0deg
+        9=180deg
+        dist=x2-x1
+        dist=9 - -9
+        dist=18
+        45deg=18/2= 9
+        */
+
+        x = (data.motionGX) * 10;
+        y = (data.motionGY + 9) * -10;
+        z = (data.motionGZ + 9);
+
+
+        radX = x * 0.01745333333333;
+        radY = y * 0.01745333333333;
+        radZ = z * 0.01745333333333;
+
+        /*var deltaX = Math.abs(mLastX - x);
+        var deltaY = Math.abs(mLastY - y);
+        var deltaZ = Math.abs(mLastZ - z);
+
+        mLastX = x;
+        mLastY = y;
+        mLastZ = z;*/
+
+
+        //console.log(Math.sqrt(z));
+        xAngle = Math.atan(x / (Math.sqrt(Math.sqrt(y) + Math.sqrt(z))));
+        //xAngle *= 180.00;
+        //xAngle /= 3.141592;
+
+        //console.log(x, y, z);
       }
     });
   </script>
@@ -89,7 +125,18 @@
       //obj.rotation.x += .01;
       //obj.rotation.y += .01;
       //obj.rotation.z += .01;
-      parent.rotation.x = -x;
+      //parent.rotation.x = .1;
+      //parent.rotation.y = .5;
+
+      //parent.rotation.z = -20 * 0.01745333333333;
+      parent.rotation.y = radX;//------------ok
+      //parent.rotation.x = -80 * 0.01745333333333;
+      parent.rotation.x = radY;//------------ok
+
+      //parent.rotation.z = radZ;//------------ok
+      //parent.position.y = z;
+
+      console.log(y);
       //parent.rotation.z = z;
       //camera.position.z += .01;
       renderer.render(scene, camera);
